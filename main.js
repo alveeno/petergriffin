@@ -62,10 +62,10 @@ Background.prototype.draw = function () {
 Background.prototype.update = function () {
 };
 
-function MushroomDude(game, spritesheet) {
+function MushroomDude(game, spritesheet, x, y) {
     this.animation = new Animation(spritesheet, 110, 100, 12, 0.15, 12, true, 1);
-    this.x = lastX + 30;
-    this.y = 330;
+    this.x = x + 30;
+    this.y = y + 30;
     this.speed = 0;
     this.game = game;
     this.ctx = game.ctx;
@@ -81,10 +81,10 @@ MushroomDude.prototype.update = function () {
     if (this.x > 800) this.x = -230;
 }
 
-function Cheetah(game, spritesheet) {
+function Cheetah(game, spritesheet, x, y) {
     this.animation = new Animation(spritesheet, 101, 156, 7, 0.10, 7, false, 1);
-    this.x = 0;
-    this.y = 300;
+    this.x = x;
+    this.y = y;
     this.speed = 250;
     this.game = game;
     this.ctx = game.ctx;
@@ -107,17 +107,17 @@ Cheetah.prototype.update = function () {
     if (firstDone === false && this.animation.isDone()) {
       firstDone = true;
       console.log('we her2');
-      gameEngine.addEntity(new Guy(gameEngine, AM.getAsset("./img/ppp.png")));
-      gameEngine.delete(new Cheetah(gameEngine, AM.getAsset("./img/pp.png")));
+      gameEngine.addEntity(new Guy(gameEngine, AM.getAsset("./img/ppp.png"), this.x, this.y));
+      //gameEngine.delete(new Cheetah(gameEngine, AM.getAsset("./img/pp.png"), this.x, this.y));
 
     }
 
 }
 
-function Guy(game, spritesheet) {
+function Guy(game, spritesheet, x, y) {
     this.animation = new Animation(spritesheet, 172, 137, 5, 0.15, 5, false, 1);
-    this.x = lastX;
-    this.y = 300;
+    this.x = x;
+    this.y = y;
     this.speed = 5;
     this.game = game;
     this.ctx = game.ctx;
@@ -136,8 +136,8 @@ Guy.prototype.update = function () {
   if (secondDone === false && this.animation.isDone()) {
     secondDone = true;
     console.log('we her3');
-    gameEngine.addEntity(new MushroomDude(gameEngine, AM.getAsset("./img/mushroomdude.png")));
-    gameEngine.delete(new Guy(gameEngine, AM.getAsset("./img/ppp.png")));
+    gameEngine.addEntity(new MushroomDude(gameEngine, AM.getAsset("./img/mushroomdude.png"), this.x, this.y));
+    //gameEngine.delete(new Guy(gameEngine, AM.getAsset("./img/ppp.png"), this.x, this.y));
 
   }
 }
@@ -157,7 +157,7 @@ AM.downloadAll(function () {
     gameEngine.start();
     gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/background.jpg")));
     //gameEngine.addEntity(new MushroomDude(gameEngine, AM.getAsset("./img/mushroomdude.png")));
-    gameEngine.addEntity(new Cheetah(gameEngine, AM.getAsset("./img/pp.png")));
+    gameEngine.addEntity(new Cheetah(gameEngine, AM.getAsset("./img/pp.png"), 0, 300));
     //gameEngine.addEntity(new Guy(gameEngine, AM.getAsset("./img/ppp.png")));
     console.log("All Done!");
 });
